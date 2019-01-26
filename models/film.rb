@@ -54,8 +54,16 @@ class Film
     sql = "SELECT customers.* FROM customers INNER JOIN tickets ON customers.id = tickets.customer_id WHERE film_id = $1"
     values = [@id]
     customer_data = SqlRunner.run(sql, values)
-  return customer_data.map {|customer| Customer.new(customer)}.sort_by!(&:name)
+    return customer_data.map {|customer| Customer.new(customer)}.sort_by!(&:name)
   end
 
+  def count_customers_at_film()
+    sql = "SELECT customers.* FROM customers INNER JOIN tickets ON customers.id = tickets.customer_id WHERE film_id = $1"
+    values = [@id]
+    customer_data = SqlRunner.run(sql, values)
+    customer_list = customer_data.map {|customer| Customer.new(customer)}
+    return customer_list.count
+
+  end
 
 end

@@ -43,24 +43,41 @@ class Customer
     sql = "SELECT films.* FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE customer_id = $1"
     values = [@id]
     film_data = SqlRunner.run(sql, values)
-  return film_data.map {|film| Film.new(film)}
-end
+    return film_data.map {|film| Film.new(film)}
+  end
 
-# def customers_at_film()
-#   sql = "SELECT customers.* FROM customers INNER JOIN tickets ON customers.id = tickets.customer_id WHERE film_id = $1"
-#   values = [@id]
-#   customer_data = SqlRunner.run(sql, values)
-# return customer_data.map {|customer| Customer.new(customer)}.sort_by!(&:name)
-# end
+  def count_tickets_by_customer()
+    sql = "SELECT films.* FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE customer_id = $1"
+    values = [@id]
+    film_data = SqlRunner.run(sql, values)
+    tickets_held = film_data.map {|film| Film.new(film)}
+    return tickets_held.count
+  end
 
-  # map {|customer| Customer.new(customer)}
-  # end
 
   def delete()
 
-      sql = "DELETE FROM customers where id = $1"
-      values = [@id]
-      SqlRunner.run(sql, values)
+    sql = "DELETE FROM customers where id = $1"
+    values = [@id]
+    SqlRunner.run(sql, values)
 
-    end
+  end
+
+
+  # def customer_pay_for_film()
+  #   sql = "SELECT films.price FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE customer_id = $1"
+  #   values = [@id]
+  #   film_price = SqlRunner.run(sql, values)
+  #   film_price = film_price.map {|film| Film.new(film)}
+  #   @funds -= film_price[0]
+  #
+  # end
+
+
+  # possibly easier to add the film price to the ticket?
+  #
+  # def customer_pay_for_film()
+  #   @funds -= Film[:price]
+  #   update()
+  # end
 end
