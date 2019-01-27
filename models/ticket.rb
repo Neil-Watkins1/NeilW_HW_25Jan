@@ -18,26 +18,26 @@ class Ticket
 
   end
 
-def save()
-  sql = "INSERT INTO tickets
-  (customer_id, film_id)
-  VALUES ($1, $2)
-  RETURNING id"
-  values = [@customer_id, @film_id]
-  ticket = SqlRunner.run(sql, values).first
-  @id = ticket['id'].to_i
+  def save()
+    sql = "INSERT INTO tickets
+    (customer_id, film_id)
+    VALUES ($1, $2)
+    RETURNING id"
+    values = [@customer_id, @film_id]
+    ticket = SqlRunner.run(sql, values).first
+    @id = ticket['id'].to_i
 
-end
+  end
 
-def self.all()
-  sql = "SELECT * FROM tickets"
-  tickets = SqlRunner.run(sql)
-  result = tickets.map { |ticket| Ticket.new(ticket)}
-  return result
-end
+  def self.all()
+    sql = "SELECT * FROM tickets"
+    tickets = SqlRunner.run(sql)
+    result = tickets.map { |ticket| Ticket.new(ticket)}
+    return result
+  end
 
 
-def delete()
+  def delete()
 
     sql = "DELETE FROM tickets where id = $1"
     values = [@id]
@@ -51,5 +51,7 @@ def delete()
     SqlRunner.run(sql, values)
   end
 
+  
 
-  end
+
+end

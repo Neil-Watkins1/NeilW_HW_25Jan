@@ -63,8 +63,14 @@ class Customer
 
   end
 
+  # def buy_ticket()
+  #   ticket_price = Film.price
+  #   @funds -= ticket_price
+  # update()
+  # end
 
-  # def customer_pay_for_film()
+
+    # def customer_pay_for_film()
   #   sql = "SELECT films.price FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE customer_id = $1"
   #   values = [@id]
   #   film_price = SqlRunner.run(sql, values)
@@ -73,11 +79,4 @@ class Customer
   #
   # end
 
-
-  # possibly easier to add the film price to the ticket?
-  #
-  # def customer_pay_for_film()
-  #   @funds -= Film[:price]
-  #   update()
-  # end
 end
